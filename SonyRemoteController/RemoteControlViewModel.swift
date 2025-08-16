@@ -21,6 +21,21 @@ class RemoteControlViewModel: ObservableObject {
         self.deviceRepository = deviceRepository
     }
 
+    func getPowerStatus() {
+        isLoading = true
+        deviceRepository.getPowerStatus { [weak self] result in
+            guard let self = self else { return }
+
+            self.isLoading = false
+            switch result {
+                case let .success(response):
+                    self.isOn = (response.result.last?.status ?? "standby") != "standby"
+            case .failure(let error):
+                self.requestStatus = "Error: \(error.localizedDescription)"
+            }
+        }
+    }
+    
     /// 切换电源状态
     func togglePower() {
         isLoading = true

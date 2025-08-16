@@ -10,8 +10,8 @@ import Alamofire
 
 // 修改 PowerStatusResponse 结构体
 public struct SonyServiceResponse<T>: Decodable, Sendable where T: Sendable, T: Decodable {
-    let id: Int
-    let result: [T]
+    public let id: Int
+    public let result: [T]
 }
 
 public enum APIError: Error {
@@ -56,6 +56,7 @@ public class APIService {
             .validate(statusCode: 200..<300)
             .responseDecodable(of: T.self) {
                 response in
+                print(String(data: response.data!, encoding: .utf8))
                 switch response.result {
                 case .success(let value):
                     completion(.success(value))

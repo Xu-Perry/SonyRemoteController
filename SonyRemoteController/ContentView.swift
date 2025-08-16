@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
     @StateObject private var viewModel = DependencyContainer.shared.remoteControlViewModel
 
@@ -38,6 +39,9 @@ struct ContentView: View {
             }
         }
         .padding()
+        .onAppear {
+            viewModel.getPowerStatus()
+        }
     }
 }
 
