@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import OSLog
 
 // 修改 PowerStatusResponse 结构体
 public struct SonyServiceResponse<T>: Decodable, Sendable where T: Sendable, T: Decodable {
@@ -51,12 +52,31 @@ public class APIService {
             "X-Auth-PSK": authPSK,
             "Content-Type": "application/json"
         ]
-
+        
+        
+        guard let data = try? JSONSerialization.data(withJSONObject: parameters) else {
+            return
+        }
+        if let paramsString = String(
+            data: data,
+            encoding: .utf8
+        ) {
+            os_log(
+                .debug,
+                log: .default,
+                "url: \(url.absoluteString) \n params: \(paramsString)"
+            )
+        }
+        
         session.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: T.self) {
                 response in
-                print(String(data: response.data!, encoding: .utf8))
+                os_log(
+                    .info,
+                    log: .default,
+                    "result: \(String(data: response.data!, encoding: .utf8)!)"
+                )
                 switch response.result {
                 case .success(let value):
                     completion(.success(value))

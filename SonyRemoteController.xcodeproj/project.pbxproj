@@ -33,9 +33,22 @@
 		2B850D5D2E50449B001E44AD /* SonyRemoteControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SonyRemoteControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		2B053F6E2E50933400AB03E5 /* Exceptions for "SonyRemoteController" folder in "Copy Bundle Resources" phase from "SonyRemoteController" target */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 2B850D412E504499001E44AD /* Resources */;
+			membershipExceptions = (
+				"RemoteControlViewModel+Audio.swift",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2B850D452E504499001E44AD /* SonyRemoteController */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2B053F6E2E50933400AB03E5 /* Exceptions for "SonyRemoteController" folder in "Copy Bundle Resources" phase from "SonyRemoteController" target */,
+			);
 			path = SonyRemoteController;
 			sourceTree = "<group>";
 		};

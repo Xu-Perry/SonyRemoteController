@@ -16,6 +16,7 @@ public enum SonyAPIList: String {
     case setSceneSetting
     case setActiveApp
     case terminateApps
+    case getVolumeInformation  // 添加新的枚举值
 }
 
 
@@ -29,7 +30,8 @@ extension SonyAPIList {
             case .setPlayContent:
                 return "sony/avContent"
             case .setAudioMute,
-                 .setAudioVolume:
+                    .setAudioVolume,
+                    .getVolumeInformation:
                 return "sony/audio"
             case .setSceneSetting:
                 return "sony/sceneSetting"
@@ -50,7 +52,8 @@ extension SonyAPIList {
                  .setAudioVolume,
                  .setSceneSetting,
                  .setActiveApp,
-                 .terminateApps:
+                 .terminateApps,
+                 .getVolumeInformation:  // 添加新的 case
                 return [
                     "method": self.rawValue,
                     "version": version,

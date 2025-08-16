@@ -7,6 +7,15 @@
 
 public struct AudioResultItem: Decodable, Sendable {}
 
+// 添加音量信息结构体
+public struct VolumeInformation: Decodable, Sendable {
+    public let volume: Int
+    public let minVolume: Int
+    public let maxVolume: Int
+    public let mute: Bool
+    public let target: String
+}
+
 public extension DeviceRepository {
     /// 设置音频静音状态
     /// - Parameters:
@@ -39,9 +48,29 @@ public extension DeviceRepository {
         ) -> Void
     ) {
         let path = api.makeURLPath()
-        let parameters = api.makeParameters(params: ["volume": volume])
+        let parameters = api.makeParameters(
+            params: ["volume": String(volume), "ui": "on", "target": "speaker"],
+            version: "1.2"
+        )
         apiService.post(path, parameters: parameters) { result
             in
+            completion(result)
+        }
+    }
+    
+    /// 获取音量信息
+    /// - Parameters:
+    ///   - api: API 枚举值
+    ///   - completion: 完成回调
+    func getVolumeInformation(
+        api: SonyAPIList = .getVolumeInformation,
+        completion: @escaping @Sendable (
+            Result<SonyServiceResponse<[VolumeInformation]>, APIError>
+        ) -> Void
+    ) {
+        let path = api.makeURLPath()
+        let parameters = api.makeParameters(params: nil, version: "1.0")
+        apiService.post(path, parameters: parameters) { result in
             completion(result)
         }
     }
